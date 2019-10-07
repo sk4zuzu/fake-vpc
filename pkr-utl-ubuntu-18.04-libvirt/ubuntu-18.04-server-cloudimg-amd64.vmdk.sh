@@ -10,6 +10,7 @@ which readlink xargs dirname docker packer /bin/rm
 SELF=`readlink -f $0 | xargs dirname`
 
 VERSION="18.04"
+RELEASE="release-20190627.1"
 IMAGE="ubuntu-${VERSION}-server-cloudimg-amd64.vmdk"
 SHA256="b5f12e2132438a271cac82bb7402d497d12309cab3cc808571b2a754555a2de1"
 
@@ -59,7 +60,7 @@ packer build -force - <<EOF
       "accelerator": "kvm",
 
       "disk_image": "true",
-      "iso_url": "https://cloud-images.ubuntu.com/releases/${VERSION}/release/${IMAGE}",
+      "iso_url": "https://cloud-images.ubuntu.com/releases/${VERSION}/${RELEASE}/${IMAGE}",
       "iso_checksum": "$SHA256",
       "iso_checksum_type": "sha256",
 
