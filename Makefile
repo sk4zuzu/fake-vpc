@@ -28,13 +28,19 @@ utl-disk:
 vpc-disk:
 	cd $(SELF)/packer/vpc/ && make build
 
-.PHONY: vpc-apply vpc-destroy
+.PHONY: vpc-apply vpc-destroy ssh-utl
 
 vpc-apply: utl-disk vpc-disk
 	pipenv run sh -c "cd $(SELF)/LIVE/vpc1/ && terragrunt apply"
 
 vpc-destroy:
 	pipenv run sh -c "cd $(SELF)/LIVE/vpc1/ && terragrunt destroy"
+
+ssh-utl:
+	@ssh -o ForwardAgent=yes \
+	     -o StrictHostKeyChecking=no \
+	     -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null \
+	     ubuntu@10.69.0.10
 
 .PHONY: k8s-disk
 
