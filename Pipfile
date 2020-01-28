@@ -9,3 +9,4 @@ verify_ssl = true
 ipaddress = "*"
 pyyaml = "*"
 terraform_external_data = "*"
+ansible = "*"
