@@ -4,20 +4,21 @@ include {
 }
 
 terraform {
-    source = "../../tf-vpc-libvirt/"
+    source = "../../terraform/vpc/"
 }
 
 inputs = {
     vpc_id = "vpc1"
 
     ssh_keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFQjHuvVYd25I+q8KPda3PHBSzyFytHcaeQuNQEKdVpf",
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINYG/4jbiwJuTXgsQq2Ao+UGfBNYp6CC48NDfwDOEndb",
+        file("~/.ssh/id_ed25519.pub"),
     ]
 
+    pool_directory = "/stor/libvirt/fake_vpc"
+
     base_images = {
-        utl = "../../../../../pkr-utl-ubuntu-18.04-libvirt/ubuntu-18.04-server-cloudimg-amd64.vmdk/qcow2"
-        vpc = "../../../../../pkr-vpc-ubuntu-18.04-libvirt/ubuntu-18.04-server-cloudimg-amd64.vmdk/qcow2"
+        utl = "../../../../../packer/utl/.cache/output/packer-utl.qcow2"
+        vpc = "../../../../../packer/vpc/.cache/output/packer-vpc.qcow2"
     }
 
     networks = [
@@ -47,31 +48,28 @@ inputs = {
         {
             name   = "vpc1u"
             vcpu   = 1
-            memory = "1024"
+            memory = "768"
         },
     ]
 
     vpc_hosts = [
         {
             name    = "vpc1a"
-            vcpu    = 8
-            memory  = "12288"
-            pool    = "vg0"
-            storage = "51539607552"
+            vcpu    = 1
+            memory  = "3686"
+            storage = "34259173344"  # 32GiB
         },
         {
             name    = "vpc1b"
-            vcpu    = 8
-            memory  = "12288"
-            pool    = "vg0"
-            storage = "51539607552"
+            vcpu    = 1
+            memory  = "3686"
+            storage = "34259173344"  # 32GiB
         },
         {
             name    = "vpc1c"
-            vcpu    = 8
-            memory  = "12288"
-            pool    = "vg0"
-            storage = "51539607552"
+            vcpu    = 1
+            memory  = "3686"
+            storage = "34259173344"  # 32GiB
         },
     ]
 }
