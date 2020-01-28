@@ -48,7 +48,7 @@ inputs = {
         {
             name   = "vpc1u"
             vcpu   = 1
-            memory = "768"
+            memory = "512"
         },
     ]
 
