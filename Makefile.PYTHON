@@ -1,0 +1,21 @@
+
+SELF := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+
+PIPENV_VENV_IN_PROJECT := 1
+
+export
+
+.PHONY: all install clean
+
+all: install
+
+install: $(SELF)/.venv/
+	echo PYTHONPATH = $$PYTHONPATH
+
+$(SELF)/.venv/:
+	unset SOURCE_DATE_EPOCH && pipenv --clear install --three --dev
+
+clean:
+	-rm -rf $(SELF)/.venv/
+
+# vim:ts=4:sw=4:noet:syn=make:
