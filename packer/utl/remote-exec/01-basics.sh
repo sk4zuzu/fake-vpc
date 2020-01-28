@@ -10,6 +10,11 @@ apt-get -q update -y
 
 policy_rc_d_disable
 
+apt-get -q remove -y --purge \
+    unattended-upgrades
+
+apt-get -q upgrade -y
+
 apt-get -q install -y --no-install-recommends \
     apt-transport-https \
     ca-certificates \
