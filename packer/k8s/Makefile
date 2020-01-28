@@ -55,7 +55,9 @@ define Packerfile
       "type": "shell",
       "execute_command": "sudo -iu root {{.Vars}} {{.Path}}",
       "scripts": [
-        "remote-exec/01-basics.sh"
+        "remote-exec/01-basics.sh",
+        "remote-exec/02-docker.sh",
+        "remote-exec/03-kubernetes.sh"
       ]
     }
   ]
