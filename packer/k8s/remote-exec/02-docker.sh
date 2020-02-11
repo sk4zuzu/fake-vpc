@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+: ${DOCKER_CE_VERSION:=18.06.0}
+: ${DOCKER_CE_VERSION_APT:=${DOCKER_CE_VERSION}~ce~3-0~ubuntu}
+
 policy_rc_d_disable() (echo "exit 101" >/usr/sbin/policy-rc.d && chmod a+x /usr/sbin/policy-rc.d)
 policy_rc_d_enable()  (echo "exit 0"   >/usr/sbin/policy-rc.d && chmod a+x /usr/sbin/policy-rc.d)
 
@@ -20,8 +23,7 @@ apt-get -q update -y
 policy_rc_d_disable
 
 apt-get -q install -y \
-    docker-ce{,-cli} \
-    containerd.io
+    docker-ce="${DOCKER_CE_VERSION_APT}"
 
 policy_rc_d_enable
 
