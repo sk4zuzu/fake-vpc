@@ -31,18 +31,18 @@ inputs = {
 
     master = {
         count   = 3
-        vcpu    = 1
-        memory  = "1686"
+        vcpu    = 2
+        memory  = "2048"
         image   = "../../../../../packer/k8s/.cache/output/packer-k8s.qcow2"
-        storage = "12884901888"  # 12GiB
+        storage = "17179869184"  # 16GiB
     }
 
     compute = {
         count   = 1
-        vcpu    = 1
+        vcpu    = 2
         memory  = "1024"
         image   = "../../../../../packer/k8s/.cache/output/packer-k8s.qcow2"
-        storage = "12884901888"  # 12GiB
+        storage = "17179869184"  # 16GiB
     }
 }
 
