@@ -35,6 +35,7 @@ inputs = {
         memory  = "2560"
         image   = "../../../../../packer/any/.cache/output/packer-any.qcow2"
         storage = "38654705664"  # 36GiB
+        running = true
     }
 }
 
