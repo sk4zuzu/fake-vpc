@@ -55,21 +55,21 @@ inputs = {
     vpc_hosts = [
         {
             name    = "vpc1a"
-            vcpu    = 1
-            memory  = "3686"
-            storage = "34259173344"  # 32GiB
+            vcpu    = 4
+            memory  = "3096"
+            storage = "128849018880"  # 120GiB
         },
         {
             name    = "vpc1b"
-            vcpu    = 1
-            memory  = "3686"
-            storage = "34259173344"  # 32GiB
+            vcpu    = 4
+            memory  = "3096"
+            storage = "128849018880"  # 120GiB
         },
         {
             name    = "vpc1c"
-            vcpu    = 1
-            memory  = "3686"
-            storage = "34259173344"  # 32GiB
+            vcpu    = 4
+            memory  = "3096"
+            storage = "128849018880"  # 120GiB
         },
     ]
 }
