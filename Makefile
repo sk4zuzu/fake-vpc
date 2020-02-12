@@ -1,6 +1,9 @@
 
 SELF := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
+PIPENV_IGNORE_VIRTUALENVS := 1
+PIPENV_VENV_IN_PROJECT    := 1
+
 export
 
 .PHONY: all requirements
@@ -55,6 +58,19 @@ k8s-apply: k8s-disk
 k8s-destroy:
 	pipenv run sh -c "cd $(SELF)/LIVE/k8s1/ && terragrunt destroy"
 
+.PHONY: any-disk
+
+any-disk:
+	cd $(SELF)/packer/any/ && make build
+
+.PHONY: any-apply any-destroy
+
+any-apply: any-disk
+	pipenv run sh -c "cd $(SELF)/LIVE/any1/ && terragrunt apply"
+
+any-destroy:
+	pipenv run sh -c "cd $(SELF)/LIVE/any1/ && terragrunt destroy"
+
 .PHONY: clean
 
 clean:
@@ -64,5 +80,6 @@ clean:
 	-cd $(SELF)/packer/utl/ && make clean
 	-cd $(SELF)/packer/vpc/ && make clean
 	-cd $(SELF)/packer/k8s/ && make clean
+	-cd $(SELF)/packer/any/ && make clean
 
 # vim:ts=4:sw=4:noet:syn=make:
