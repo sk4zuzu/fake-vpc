@@ -30,6 +30,7 @@ resource "libvirt_domain" "nodes" {
         volume_id = libvirt_volume.nodes.*.id[count.index]
 	}
 
+    running   = var.running
     autostart = true
 }
 

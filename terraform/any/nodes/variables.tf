@@ -27,6 +27,10 @@ variable "storage" {
     type = string
 }
 
+variable "running" {
+    type = bool
+}
+
 variable "_count" {
     type = number
 }

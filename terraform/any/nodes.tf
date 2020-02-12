@@ -19,6 +19,7 @@ module "nodes-az1" {
     memory  = var.nodes["memory"]
     image   = var.nodes["image"]
     storage = var.nodes["storage"]
+    running = var.nodes["running"]
 
     _count = floor((2 + var.nodes["count"])/3)
 }
@@ -43,6 +44,7 @@ module "nodes-az2" {
     memory  = var.nodes["memory"]
     image   = var.nodes["image"]
     storage = var.nodes["storage"]
+    running = var.nodes["running"]
 
     _count = floor((1 + var.nodes["count"])/3)
 }
@@ -67,6 +69,7 @@ module "nodes-az3" {
     memory  = var.nodes["memory"]
     image   = var.nodes["image"]
     storage = var.nodes["storage"]
+    running = var.nodes["running"]
 
     _count = floor((0 + var.nodes["count"])/3)
 }
