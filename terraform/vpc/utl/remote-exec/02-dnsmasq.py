@@ -27,7 +27,7 @@ def dnsmasq():
     )
 
     dhcp_ranges = "\n".join(
-        "dhcp-range=ens%d,%s,%s" % (
+        "dhcp-range=ens%d,%s,%s,infinite" % (
             index + 4,
             str(subnet[11]),
             str(subnet[-2])
