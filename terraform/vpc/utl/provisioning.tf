@@ -22,27 +22,34 @@ resource "null_resource" "utl" {
     }
 
     provisioner "file" {
-        content = templatefile("${path.module}/remote-exec/01-iptables.py", {
-            NETWORKS_JSON = jsonencode(var.networks)
+        content = templatefile("${path.module}/remote-exec/01-openssh.py", {
         })
-        destination = "/terraform/remote-exec/01-iptables.py"
+        destination = "/terraform/remote-exec/01-openssh.py"
     }
 
     provisioner "file" {
-        content = templatefile("${path.module}/remote-exec/02-dnsmasq.py", {
+        content = templatefile("${path.module}/remote-exec/02-iptables.py", {
+            NETWORKS_JSON = jsonencode(var.networks)
+        })
+        destination = "/terraform/remote-exec/02-iptables.py"
+    }
+
+    provisioner "file" {
+        content = templatefile("${path.module}/remote-exec/03-dnsmasq.py", {
             VPC_ID                  = var.vpc_id
             NETWORKS_JSON           = jsonencode(var.networks)
             DHCP_IGNORED_HOSTS_JSON = jsonencode(list(lookup(data.external.hostname.*.result[count.index], "hostname")))
         })
-        destination = "/terraform/remote-exec/02-dnsmasq.py"
+        destination = "/terraform/remote-exec/03-dnsmasq.py"
     }
 
     provisioner "remote-exec" {
         inline = [
             "set -o errexit",
             "find /terraform/remote-exec -type f -name '*.py' | xargs chmod +x",
-            "sudo -iu root /terraform/remote-exec/01-iptables.py",
-            "sudo -iu root /terraform/remote-exec/02-dnsmasq.py",
+            "sudo -iu root /terraform/remote-exec/01-openssh.py",
+            "sudo -iu root /terraform/remote-exec/02-iptables.py",
+            "sudo -iu root /terraform/remote-exec/03-dnsmasq.py",
         ]
     }
 }
