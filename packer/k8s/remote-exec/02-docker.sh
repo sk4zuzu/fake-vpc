@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-: ${DOCKER_CE_VERSION:=18.06.0}
-: ${DOCKER_CE_VERSION_APT:=${DOCKER_CE_VERSION}~ce~3-0~ubuntu}
+: ${DOCKER_CE_VERSION:=18.09.9}
+: ${DOCKER_CE_VERSION_APT:=5:${DOCKER_CE_VERSION}~3-0~ubuntu-bionic}
+: ${CONTAINERD_IO_VERSION:=1.2.10}
+: ${CONTAINERD_IO_VERSION_APT:=${CONTAINERD_IO_VERSION}-3}
 
 policy_rc_d_disable() (echo "exit 101" >/usr/sbin/policy-rc.d && chmod a+x /usr/sbin/policy-rc.d)
 policy_rc_d_enable()  (echo "exit 0"   >/usr/sbin/policy-rc.d && chmod a+x /usr/sbin/policy-rc.d)
@@ -23,7 +25,12 @@ apt-get -q update -y
 policy_rc_d_disable
 
 apt-get -q install -y \
-    docker-ce="${DOCKER_CE_VERSION_APT}"
+    docker-ce{,-cli}="${DOCKER_CE_VERSION_APT}" \
+    containerd.io="${CONTAINERD_IO_VERSION_APT}"
+
+apt-mark hold \
+    docker-ce{,-cli} \
+    containerd.io
 
 # setup "systemd" as cgroup driver
 install -d /etc/docker/ && cat >/etc/docker/daemon.json <<EOF
