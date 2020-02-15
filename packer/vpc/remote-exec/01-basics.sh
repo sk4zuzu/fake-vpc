@@ -17,6 +17,10 @@ apt-get -q remove -y --purge \
 
 apt-get -q upgrade -y
 
+apt-get -q install -y \
+    linux-image-extra-virtual \
+    zram-config
+
 apt-get -q install -y --no-install-recommends \
     apt-transport-https \
     ca-certificates \
