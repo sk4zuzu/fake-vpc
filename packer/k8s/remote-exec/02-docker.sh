@@ -25,6 +25,18 @@ policy_rc_d_disable
 apt-get -q install -y \
     docker-ce="${DOCKER_CE_VERSION_APT}"
 
+# setup "systemd" as cgroup driver
+install -d /etc/docker/ && cat >/etc/docker/daemon.json <<EOF
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+EOF
+
 policy_rc_d_enable
 
 apt-get -q clean
