@@ -3906,4 +3906,6 @@ libvirt_pool.fake_vpc: Destruction complete after 5s
 Destroy complete! Resources: 23 destroyed.
 ```
 
+![:thinking-face:](https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/233/thinking-face_1f914.png)
+
 [//]: # ( vim:set ts=2 sw=2 et syn=markdown: )
