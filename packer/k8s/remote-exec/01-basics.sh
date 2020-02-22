@@ -30,6 +30,9 @@ apt-get -q install -y --no-install-recommends \
     iftop nethogs \
     jq
 
+apt-get -q install -y --no-install-recommends \
+    haproxy
+
 apt-get -q install -y \
     python3 \
     python3-pip
