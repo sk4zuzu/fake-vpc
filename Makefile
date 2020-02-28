@@ -76,6 +76,14 @@ any-apply: any-disk
 any-destroy:
 	pipenv run sh -c "cd $(SELF)/LIVE/any1/ && terragrunt destroy $(AUTO_APPROVE)"
 
+.PHONY: asd-apply asd-destroy
+
+asd-apply: any-disk
+	pipenv run sh -c "cd $(SELF)/LIVE/asd1/ && terragrunt apply $(AUTO_APPROVE)"
+
+asd-destroy:
+	pipenv run sh -c "cd $(SELF)/LIVE/asd1/ && terragrunt destroy $(AUTO_APPROVE)"
+
 .PHONY: clean
 
 clean:
