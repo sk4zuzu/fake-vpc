@@ -1,14 +1,19 @@
 
 SELF := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
+AUTO_APPROVE :=
+
 PIPENV_IGNORE_VIRTUALENVS := 1
 PIPENV_VENV_IN_PROJECT    := 1
 
 export
 
-.PHONY: all requirements
+.PHONY: all yes requirements
 
 all: vpc-apply
+
+yes:
+	@: $(eval AUTO_APPROVE := --auto-approve)
 
 requirements: binaries extras python
 
@@ -34,10 +39,10 @@ vpc-disk:
 .PHONY: vpc-apply vpc-destroy ssh-utl
 
 vpc-apply: utl-disk vpc-disk
-	pipenv run sh -c "cd $(SELF)/LIVE/vpc1/ && terragrunt apply"
+	pipenv run sh -c "cd $(SELF)/LIVE/vpc1/ && terragrunt apply $(AUTO_APPROVE)"
 
 vpc-destroy:
-	pipenv run sh -c "cd $(SELF)/LIVE/vpc1/ && terragrunt destroy"
+	pipenv run sh -c "cd $(SELF)/LIVE/vpc1/ && terragrunt destroy $(AUTO_APPROVE)"
 
 ssh-utl:
 	@ssh -o ForwardAgent=yes \
@@ -53,10 +58,10 @@ k8s-disk:
 .PHONY: k8s-apply k8s-destroy
 
 k8s-apply: k8s-disk
-	pipenv run sh -c "cd $(SELF)/LIVE/k8s1/ && terragrunt apply"
+	pipenv run sh -c "cd $(SELF)/LIVE/k8s1/ && terragrunt apply $(AUTO_APPROVE)"
 
 k8s-destroy:
-	pipenv run sh -c "cd $(SELF)/LIVE/k8s1/ && terragrunt destroy"
+	pipenv run sh -c "cd $(SELF)/LIVE/k8s1/ && terragrunt destroy $(AUTO_APPROVE)"
 
 .PHONY: any-disk
 
@@ -66,10 +71,10 @@ any-disk:
 .PHONY: any-apply any-destroy
 
 any-apply: any-disk
-	pipenv run sh -c "cd $(SELF)/LIVE/any1/ && terragrunt apply"
+	pipenv run sh -c "cd $(SELF)/LIVE/any1/ && terragrunt apply $(AUTO_APPROVE)"
 
 any-destroy:
-	pipenv run sh -c "cd $(SELF)/LIVE/any1/ && terragrunt destroy"
+	pipenv run sh -c "cd $(SELF)/LIVE/any1/ && terragrunt destroy $(AUTO_APPROVE)"
 
 .PHONY: clean
 
