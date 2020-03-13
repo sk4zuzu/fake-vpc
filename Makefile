@@ -8,10 +8,11 @@ PIPENV_VENV_IN_PROJECT    := 1
 
 export
 
-.PHONY: all yes requirements
+.PHONY: all confirm yes requirements
 
 all: vpc-apply
 
+confirm: yes
 yes:
 	@: $(eval AUTO_APPROVE := --auto-approve)
 
